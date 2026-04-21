@@ -1,0 +1,54 @@
+{
+    "perfumes" : [
+    {
+        "name" : "Armaf Club De Nuit Intense Man Parfum",
+        "link" : {
+            "belvish" : "https://belvish.com/products/armaf-club-de-nuit-intense-parfum-for-men",
+            "whiffculture" : "https://www.whiffculture.com/products/armaf-club-de-nuit-intense-man-pure-parfum?variant=51721472278896",
+            "splashfrag" : "https://splashfragrance.in/club-de-nuit-intense-man-by-armaf-150ml-parfum-decant-online-india/",
+            "perfumepalace" : "https://perfumepalace.in/products/armaf-club-de-nuiit-intense-man-pure-perfume-for-men-150ml-made-in-uae",
+            "fragheaven" : "https://www.fragranceheaven.in/products/armaf-club-de-nuit-intense-pure-parfum-for-man-150ml"
+        }
+    },
+    {
+        "name" : "Lattafa Asad",
+        "link" : {
+            "belvish" : "https://belvish.com/products/lattafa-asad-edp",
+            "whiffculture" : "https://www.whiffculture.com/products/lattafa-asad?variant=51721472672112",
+            "splashfrag" : "https://splashfragrance.in/asad-by-lattafa-edp-perfume-2021-release-decant-online-india/",
+            "perfumepalace" : "https://perfumepalace.in/products/lattafa-asad-eau-de-parfum-from-lattafa-pefumes-unisex-100ml",
+            "fragheaven" : "https://www.fragranceheaven.in/products/lattafa-asad-eau-de-parfum-from-lattafa-pefume-unisex-100ml"
+        }
+    },
+    {
+        "name" : "Lattafa Khamrah Qahwa",
+        "link" : {
+            "belvish" : "https://belvish.com/products/lattafa-khamrah-qahwa-edp-unisex",
+            "whiffculture" : "https://www.whiffculture.com/products/lattafa-khamrah-qahwa?variant=51721473294704",
+            "splashfrag" : "https://splashfragrance.in/khamrah-qahwa-by-lattafa-edp-perfume-2023-release-decant-online-india/",
+            "perfumepalace" : "https://perfumepalace.in/products/lattafa-khamrah-qahwa-eau-de-parfum-100ml-for-men-women",
+            "fragheaven" : "https://www.fragranceheaven.in/products/lattafa-khamrah-qahwa-eau-de-parfum-100ml-for-men-women"
+        }
+    },
+    {
+        "name" : "Afnan 9PM EDP",
+        "link" : {
+            "belvish" : "https://belvish.com/collections/afnan/products/afnan-9pm-edp-for-men",
+            "whiffculture" : "https://www.whiffculture.com/products/afnan-9pm-1?variant=51834735722864",
+            "splashfrag" : "https://splashfragrance.in/9pm-by-afnan-edp-perfume-for-men-decant-online-india/",
+            "perfumepalace" : "https://perfumepalace.in/products/afnan-9-pm-eau-de-parfum-100-ml-for-men",
+            "fragheaven" : "https://www.fragranceheaven.in/products/afnan-9pm-edp-for-men-100ml"
+        }
+    },
+    {
+        "name" : "Afnan Rue Broca Theoreme EDP",
+        "link" : {
+            "belvish" : "https://belvish.com/products/afnan-rue-broca-theoreme-edp-for-men",
+            "whiffculture" : "https://www.whiffculture.com/products/rue-broca-theoreme?variant=51721477521776",
+            "splashfrag" : "https://splashfragrance.in/theoreme-by-rue-broca-pour-homme-edp-perfumne-decant-india/",
+            "perfumepalace" : "https://perfumepalace.in/products/rue-broca-theoreme-pour-homme-eau-de-parfum-90ml-for-him",
+            "fragheaven" : "https://www.fragranceheaven.in/collections/men/products/rue-broca-theoreme-pour-homme-eau-de-parfum-90ml-for-him"
+        }
+    }
+    ]
+}

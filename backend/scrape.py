@@ -7,56 +7,51 @@ import json
 def belvish_scraping(link):
     page_to_scrape = requests.get(link)
     soup = BeautifulSoup(page_to_scrape.text, "html.parser")
-    prices = soup.find_all("span", attrs={"class":"f-price-item f-price-item--sale text-xl md:text-2xl prod__price text-color-regular-price"})
-    return prices
+    spans = soup.find_all("span", attrs={"class":"f-price-item f-price-item--sale text-xl md:text-2xl prod__price text-color-regular-price"})
+    price = (spans[0].string.strip())
+    return price
 
 def whiffculture_scraping(link):
     page_to_scrape = requests.get(link)
     soup = BeautifulSoup(page_to_scrape.text, "html.parser")
-    prices = soup.find_all("span", attrs={"class":"price-item price-item--regular"})
-    return prices
+    spans = soup.find_all("span", attrs={"class":"price-item price-item--regular"})
+    price = (spans[0].string.strip())
+    return price
 
 def splashfrag_scraping(link):
     page_to_scrape = requests.get(link)
     soup = BeautifulSoup(page_to_scrape.text, "html.parser")
-    prices = soup.find_all("span", attrs={"class":"woocommerce-Price-amount amount"})
-    return prices
+    spans = soup.find_all("span", attrs={"class":"woocommerce-Price-amount amount"})
+    price = (spans[0].string.strip())
+    return price
 
 def perfumepalace_scraping(link):
     page_to_scrape = requests.get(link)
     soup = BeautifulSoup(page_to_scrape.text, "html.parser")
-    prices = soup.find_all("span", attrs={"class":"money bacurr-money"})
-    return prices
+    spans = soup.find_all("span", attrs={"class":"money bacurr-money"})
+    price = (spans[0].string.strip())
+    return price
 
 def fragheaven_scraping(link):
     page_to_scrape = requests.get(link)
     soup = BeautifulSoup(page_to_scrape.text, "html.parser")
-    prices = soup.find_all("div", attrs={"class":"t4s-product-price"})
-    return prices  
+    spans = soup.find_all("div", attrs={"class":"t4s-product-price"})
+    price = (spans[0].string.strip())
+    return price
 
-# Reading the JSON file.
+# Reading the JSON file and scraping.
 
 fragfile = json.load(open("backend/fragrances.json"))
 
-print (fragfile["perfumes"][0]["link"]["belvish"])
+num = 0
 
-
-
-
-
-
-
-""" fragNames = []
-belvishPrices = []
-
-data = {'name':fragNames, 'belvish_price':belvishPrices}
-
-for name, price in zip(names, prices):
-    fragNames.append(name.text)
-
-    clean_price = price.text.replace('\n', '')
-    belvishPrices.append(clean_price)
-
-df = pd.DataFrame(data)
-
-print(df) """
+# for frag in fragfile["perfumes"]:
+#     frag_prices = {
+#     "fragid" : num,
+#     "belvish_price" : belvish_scraping(fragfile["perfumes"][num]["link"]["belvish"]),
+#     "whiffculture_price" : whiffculture_scraping(fragfile["perfumes"][num]["link"]["whiffculture"]),
+#     "splashfrag_price" : splashfrag_scraping(fragfile["perfumes"][num]["link"]["splashfrag"]),
+#     "perfumepalace_price" : perfumepalace_scraping(fragfile["perfumes"][num]["link"]["perfumepalace"]),
+#     "fragheaven_price" : fragheaven_scraping(fragfile["perfumes"][num]["link"]["fragheaven"]),
+#     }
+#     num += 1
