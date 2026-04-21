@@ -8,35 +8,35 @@ def belvish_scraping(link):
     page_to_scrape = requests.get(link)
     soup = BeautifulSoup(page_to_scrape.text, "html.parser")
     spans = soup.find_all("span", attrs={"class":"f-price-item f-price-item--sale text-xl md:text-2xl prod__price text-color-regular-price"})
-    price = (spans[0].string.strip())
+    price = (spans[0].string.replace("Rs.", "").strip())
     return price
 
 def whiffculture_scraping(link):
     page_to_scrape = requests.get(link)
     soup = BeautifulSoup(page_to_scrape.text, "html.parser")
     spans = soup.find_all("span", attrs={"class":"price-item price-item--regular"})
-    price = (spans[0].string.strip())
+    price = (spans[0].string.replace("Rs.", "").strip())
     return price
 
 def splashfrag_scraping(link):
     page_to_scrape = requests.get(link)
     soup = BeautifulSoup(page_to_scrape.text, "html.parser")
     spans = soup.find_all("span", attrs={"class":"woocommerce-Price-amount amount"})
-    price = (spans[0].string.strip())
+    price = (spans[0].string.replace("Rs.", "").strip())
     return price
 
 def perfumepalace_scraping(link):
     page_to_scrape = requests.get(link)
     soup = BeautifulSoup(page_to_scrape.text, "html.parser")
     spans = soup.find_all("span", attrs={"class":"money bacurr-money"})
-    price = (spans[0].string.strip())
+    price = (spans[0].string.replace("Rs.", "").strip())
     return price
 
 def fragheaven_scraping(link):
     page_to_scrape = requests.get(link)
     soup = BeautifulSoup(page_to_scrape.text, "html.parser")
     spans = soup.find_all("div", attrs={"class":"t4s-product-price"})
-    price = (spans[0].string.strip())
+    price = (spans[0].string.replace("Rs.", "").strip())
     return price
 
 # Reading the JSON file and scraping.
