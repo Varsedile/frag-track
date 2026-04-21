@@ -1,2 +1,5 @@
 .frag-track/
 .vscode/
+backend/database.db
+backend/.env
+backend/test.py
