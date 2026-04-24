@@ -1,9 +1,30 @@
 import sqlite3
+import json
+import datetime
 
-conn = sqlite3.connect('database.db')
+# Importing tjson data.
+
+fragfile = json.load(open("backend/fragrances.json"))
+
+# Database setup for adding scraped data.
+
+conn = sqlite3.connect('backend/database.db')
 cursor = conn.cursor()
 
-cursor.execute("CREATE TABLE IF NOT EXISTS fragrance (id INTEGER PRIMARY KEY, name TEXT, belvish TEXT, whiffculture TEXT, splashfrag TEXT, perfumepalace TEXT, fragheaven TEXT, added_at DATETIME)")
-cursor.execute("CREATE TABLE IF NOT EXISTS price_history (id INTEGER PRIMARY KEY, fragrance_id INTEGER, belvish_price REAL, whiffculture_price REAL, splashfrag_price REAL, perfumepalace_price REAL, fragheaven_price REAL, scraped_at DATETIME, FOREIGN KEY(fragrance_id) REFERENCES fragrance(id))")
+def setup_database():
+    cursor.execute("CREATE TABLE IF NOT EXISTS fragrance (id INTEGER PRIMARY KEY, name TEXT, belvish TEXT, whiffculture TEXT, splashfrag TEXT, perfumepalace TEXT, fragheaven TEXT, added_at DATETIME)")
+    cursor.execute("CREATE TABLE IF NOT EXISTS price_history (id INTEGER PRIMARY KEY, fragrance_id INTEGER, belvish_price REAL, whiffculture_price REAL, splashfrag_price REAL, perfumepalace_price REAL, fragheaven_price REAL, scraped_at DATETIME, FOREIGN KEY(fragrance_id) REFERENCES fragrance(id))")
 
-cursor.execute("INSERT INTO fragrance (name) VALUES (?)", (name,))
+# Adding scraped data to the database.
+
+def insert_frags(fragfile):
+    for frag in fragfile["perfumes"]:
+        cursor.execute("INSERT INTO fragrance (name, belvish, whiffculture, splashfrag, perfumepalace, fragheaven, added_at) VALUES (?, ?, ?, ?, ?, ?, ?)", (frag["name"], frag["link"]["belvish"], frag["link"]["whiffculture"], frag["link"]["splashfrag"], frag["link"]["perfumepalace"], frag["link"]["fragheaven"], datetime.datetime.now()))
+        conn.commit()
+
+def insert_prices(fragprices):
+    num = 0
+    for frag in fragfile["perfumes"]:
+        cursor.execute("INSERT INTO price_history (fragrance_id, belvish_price, whiffculture_price, splashfrag_price, perfumepalace_price, fragheaven_price, scraped_at) VALUES (?, ?, ?, ?, ?, ?, ?)", (num + 1, fragprices[num]["belvish_price"], fragprices[num]["whiffculture_price"], fragprices[num]["splashfrag_price"], fragprices[num]["perfumepalace_price"], fragprices[num]["fragheaven_price"], datetime.datetime.now()))
+        conn.commit()
+        num += 1

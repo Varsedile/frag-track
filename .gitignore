@@ -3,3 +3,4 @@
 backend/database.db
 backend/.env
 backend/test.py
+backend/__pycache__/
