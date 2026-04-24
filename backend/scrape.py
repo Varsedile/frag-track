@@ -23,6 +23,8 @@ def aarfrag_scraping(link):
     page_to_scrape = requests.get(link)
     soup = BeautifulSoup(page_to_scrape.text, "html.parser")
     spans = soup.find_all("strong", attrs={"class":"h2 fw-600 text-primary"})
+    if len(spans) == 0:
+        spans = soup.find_all("strong", attrs={"class":"h3 fw-600 text-primary"})
     price = (spans[0].text.replace("₹", "").strip())
     return price
 
@@ -55,6 +57,8 @@ for frag in fragfile["perfumes"]:
     "perfumepalace_price" : perfumepalace_scraping(frag["link"]["perfumepalace"]),
     "fragheaven_price" : fragheaven_scraping(frag["link"]["fragheaven"]),
     })
+
+# Running database functions to add scraped data to the database.
 
 db.setup_database()
 db.insert_frags(fragfile)

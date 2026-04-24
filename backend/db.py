@@ -2,7 +2,7 @@ import sqlite3
 import json
 import datetime
 
-# Importing tjson data.
+# Importing json data.
 
 fragfile = json.load(open("backend/fragrances.json"))
 
