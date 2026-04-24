@@ -19,11 +19,11 @@ def whiffculture_scraping(link):
     price = (spans[0].string.replace("Rs.", "").strip())
     return price
 
-def splashfrag_scraping(link):
+def aarfrag_scraping(link):
     page_to_scrape = requests.get(link)
     soup = BeautifulSoup(page_to_scrape.text, "html.parser")
-    spans = soup.find_all("span", attrs={"class":"woocommerce-Price-amount amount"})
-    price = (spans[40].text.replace("₹", ""))
+    spans = soup.find_all("strong", attrs={"class":"h2 fw-600 text-primary"})
+    price = (spans[0].text.replace("₹", "").strip())
     return price
 
 def perfumepalace_scraping(link):
@@ -47,10 +47,11 @@ fragfile = json.load(open("backend/fragrances.json"))
 fragprices = []
 
 for frag in fragfile["perfumes"]:
+    print("done with " + frag["name"])
     fragprices.append({
     "belvish_price" : belvish_scraping(frag["link"]["belvish"]),
     "whiffculture_price" : whiffculture_scraping(frag["link"]["whiffculture"]),
-    "splashfrag_price" : splashfrag_scraping(frag["link"]["splashfrag"]),
+    "aarfrag_price" : aarfrag_scraping(frag["link"]["aarfrag"]),
     "perfumepalace_price" : perfumepalace_scraping(frag["link"]["perfumepalace"]),
     "fragheaven_price" : fragheaven_scraping(frag["link"]["fragheaven"]),
     })
