@@ -1,22 +1,45 @@
 let params = new URL(document.location.toString()).searchParams;
-let ids = params.get("id");
+ids = params.get("id");
 
 fetch(`http://127.0.0.1:5001/fragrances/${ids}`)
   .then(response => response.json())
-  .then(datas => {
-    data = datas[0]
-    document.getElementById("name-frag").innerHTML = data[1]
-    document.getElementById("photo-frag").src = `assets/${data[1]}.webp`
+  .then(data => {
+    data.forEach(frag => {
 
-    document.getElementById("belvish-link").href = data[2]
-    document.getElementById("whiff-culture-link").href = data[3]
-    document.getElementById("aar-fragrances-link").href = data[4]
-    document.getElementById("perfume-palace-link").href = data[5]
-    document.getElementById("fragrance-haven-link").href = data[6]
+    let minAmt = frag[10];
 
-    document.getElementById("belvish-price").innerHTML = `₹${data[10]}`
-    document.getElementById("whiff-culture-price").innerHTML = `₹${data[11]}`
-    document.getElementById("aar-fragrances-price").innerHTML = `₹${data[12]}`
-    document.getElementById("perfume-palace-price").innerHTML = `₹${data[13]}`
-    document.getElementById("fragrance-haven-price").innerHTML = `₹${data[14]}`
+    const elements = [
+    { id: 10, element: "belvish-price"},
+    { id: 11, element: "whiff-culture-price"},
+    { id: 12, element: "aar-fragrances-price"},
+    { id: 13, element: "perfume-palace-price"},
+    { id: 14, element: "fragrance-haven-price"}
+    ]
+    
+    for (let i = 10; i < 15; i++) {
+        if (minAmt > frag[i]) {
+            minAmt = frag[i]
+        }
+    }
+    
+    document.getElementById("name-frag").innerHTML = frag[1]
+    document.getElementById("photo-frag").src = `assets/${frag[1]}.webp`
+
+    document.getElementById("belvish-link").href = frag[2]
+    document.getElementById("whiff-culture-link").href = frag[3]
+    document.getElementById("aar-fragrances-link").href = frag[4]
+    document.getElementById("perfume-palace-link").href = frag[5]
+    document.getElementById("fragrance-haven-link").href = frag[6]
+
+    elements.forEach(item => {
+        if (minAmt == frag[item.id]) {
+            document.getElementById(item.element).innerHTML = `₹${frag[item.id]}`
+            document.getElementById(item.element).classList.add("text-black")
+        }
+        else {
+            document.getElementById(item.element).innerHTML = `₹${frag[item.id]}`
+            document.getElementById(item.element).classList.add("text-gray-400")
+        }
+        })
+    })
 })

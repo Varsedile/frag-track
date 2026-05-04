@@ -42,27 +42,27 @@ const options = {
   series: [
     {
       name: "Belvish",
-      data: [6500, 6418, 6456, 6526, 6356, 6456],
+      data: [],
       color: belvishColour,
     },
     {
       name: "Whiff Culture",
-      data: [6456, 6356, 6526, 6332, 6418, 6500],
+      data: [],
       color: whiffColour,
     },
         {
       name: "Aar Fragrances",
-      data: [6500, 6418, 6456, 6526, 6356, 6456],
+      data: [],
       color: aarColour,
     },
     {
       name: "Perfume Palace",
-      data: [6456, 6356, 6526, 6332, 6418, 6500],
+      data: [],
       color: palaceColour,
     },
         {
       name: "Fragrance Haven",
-      data: [6500, 6418, 6456, 6526, 6356, 6456],
+      data: [],
       color: havenColour,
     },
   ],
@@ -70,7 +70,6 @@ const options = {
     show: false
   },
   xaxis: {
-    categories: ['01 Feb', '02 Feb', '03 Feb', '04 Feb', '05 Feb', '06 Feb', '07 Feb'],
     labels: {
       show: true,
       style: {
@@ -90,7 +89,62 @@ const options = {
   },
 }
 
-if (document.getElementById("line-chart") && typeof ApexCharts !== 'undefined') {
-  const chart = new ApexCharts(document.getElementById("line-chart"), options);
-  chart.render();
-}
+const chart = new ApexCharts(document.getElementById("line-chart"), options);
+chart.render();
+
+let index = 0;
+
+fetch(`http://127.0.0.1:5001/fragrances/${ids}/history`)
+  .then(response => response.json())
+  .then(data => {
+
+    const belvishArray = [];
+    const whiffArray = [];
+    const aarArray = [];
+    const palaceArray = [];
+    const havenArray = [];
+    const dateTime = [];
+
+    data.forEach(frag => {
+        belvishArray.push(frag[index+2])
+        whiffArray.push(frag[index+3])
+        aarArray.push(frag[index+4])
+        palaceArray.push(frag[index+5])
+        havenArray.push(frag[index+6])
+        dateTime.push(new Date(frag[index+7].split(" ")[0]).toLocaleDateString('en-US', {month: 'long', day: 'numeric'}))
+    })
+
+    chart.updateSeries([
+            {
+        name: "Belvish",
+        data: belvishArray,
+        color: belvishColour,
+        },
+            {
+        name: "Whiff Culture",
+        data: whiffArray,
+        color: whiffColour,
+        },
+            {
+        name: "Aar Fragrances",
+        data: aarArray,
+        color: aarColour,
+        },
+        {
+        name: "Perfume Palace",
+        data: palaceArray,
+        color: palaceColour,
+        },
+            {
+        name: "Fragrance Haven",
+        data: havenArray,
+        color: havenColour,
+        }
+    ])
+
+    chart.updateOptions({
+        xaxis: {
+            categories: dateTime,
+        }
+    })
+})

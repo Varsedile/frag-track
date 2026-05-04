@@ -22,5 +22,12 @@ def show_id(id):
     data = db.get_one_fragrance(id)
     return jsonify(data)
 
+# Routing price history by ID
+
+@app.route("/fragrances/<int:id>/history")
+def show_price_history(id):
+    data = db.get_price_history(id)
+    return jsonify(data)
+
 if __name__ == '__main__':
     app.run(debug=True, port=5001)
