@@ -2,24 +2,27 @@ import libsql as sqlite3
 import os
 import json
 import datetime
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Connecting cloud database.
 
 conn = sqlite3.connect(
-    database=os.getenv("TURSO_DATABASE_URL"),
-    auth_token=os.getenv("TURSO_AUTH_TOKEN")
+    database=os.environ["TURSO_DATABASE_URL"],
+    auth_token=os.environ["TURSO_AUTH_TOKEN"]
 )
 
 # Importing json data.
 
 fragfile = json.load(open("fragrances.json"))
 
-# Database setup for adding scraped data.
-
 # conn = sqlite3.connect('database.db', check_same_thread=False)
 cursor = conn.cursor()
 cursor1 = conn.cursor()
 cursor2 = conn.cursor()
+
+# Database setup for adding scraped data.
 
 def setup_database():
     cursor.execute("CREATE TABLE IF NOT EXISTS fragrance (id INTEGER PRIMARY KEY, name TEXT UNIQUE, belvish TEXT, whiffculture TEXT, aarfrag TEXT, perfumepalace TEXT, fragheaven TEXT, added_at DATETIME)")
