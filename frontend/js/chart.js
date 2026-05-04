@@ -1,8 +1,12 @@
+// Colour of the chart lines
+
 const belvishColour = "#4B0A58";
 const whiffColour = "#1447E6";
 const aarColour = "#FF6B6B";
 const palaceColour = "#4ECDC4";
 const havenColour = "#FFE66D";
+
+// Options of the chart
 
 const options = {
   chart: {
@@ -89,10 +93,14 @@ const options = {
   },
 }
 
+// Rendering the chart
+
 const chart = new ApexCharts(document.getElementById("line-chart"), options);
 chart.render();
 
 let index = 0;
+
+// Adding values to the chart
 
 fetch(`http://127.0.0.1:5001/fragrances/${ids}/history`)
   .then(response => response.json())

@@ -10,6 +10,9 @@
 </head>
 <body>
 <div class="bg-white">
+
+<!-- Header section -->
+
   <header class="absolute inset-x-0 top-0 z-50">
     <nav aria-label="Global" class="flex items-center justify-between p-6 lg:px-8">
       <div class="flex lg:flex-1">
@@ -60,23 +63,20 @@
 
   <div class="pt-6">
 
-    <!-- Image gallery -->
+    <!-- Image -->
     <div class="mx-auto mt-6 max-w-2xl sm:px-6 lg:max-w-7xl lg:grid-cols-1 lg:px-8">
       <img id="photo-frag" alt="picture of the fragrance" class="row-span-1 aspect-3/4 w-xs rounded-lg object-cover max-lg:hidden" />
     </div>
 
-    <!-- Product info -->
+    <!-- Product name -->
     <div class="mx-auto max-w-2xl px-4 pt-10 pb-16 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto_auto_1fr] lg:gap-x-8 lg:px-8 lg:pt-16 lg:pb-24">
       <div class="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
         <h1 id="name-frag" class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl"></h1>
       </div>
 
-      <!-- Options -->
-      <div class="mt-4 lg:row-span-3 lg:mt-0">
-        <h2 class="sr-only">Product information</h2>
-
 <!-- Prices for each websites -->
 
+<div class="mt-4 lg:row-span-3 lg:mt-0">
 <div class="w-full max-w-sm p-6 bg-neutral-primary-soft border border-default rounded-base shadow-xs">
     <div class="flex items-center justify-between mb-4">
         <h5 class="text-xl font-semibold leading-none text-heading">Prices</h5>
@@ -148,8 +148,6 @@
 </div>
 
 <!-- Graph for the prices -->
-
-
 <div class="max-w-sm w-full bg-neutral-primary-soft border border-default rounded-base shadow-xs p-4 md:p-6">
   <div class="flex justify-between mb-4 md:mb-6">
     <h5 class="text-xl font-semibold leading-none text-heading">Price History</h5>
@@ -158,12 +156,10 @@
   </div>
   <div id="line-chart"></div>
 </div>
-
-
       </div>
-
       <div class="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pt-6 lg:pr-8 lg:pb-16">
-        <!-- Description and details -->
+        <!-- Description of the product -->
+
         <div>
           <h3 class="sr-only">Description</h3>
 
@@ -175,6 +171,8 @@
     </div>
   </div>
 </div>
+
+<!-- Footer section -->
 
 <footer class="bg-neutral-primary-soft">
     <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">

@@ -1,5 +1,9 @@
+// Getting ID from the link
+
 let params = new URL(document.location.toString()).searchParams;
 ids = params.get("id");
+
+// Inserting name, photos, links and prices of the products
 
 fetch(`http://127.0.0.1:5001/fragrances/${ids}`)
   .then(response => response.json())
