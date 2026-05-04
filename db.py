@@ -32,15 +32,13 @@ def setup_database():
 
 def insert_frags(fragfile):
     for frag in fragfile["perfumes"]:
-        cursor.execute("INSERT OR IGNORE INTO fragrance (name, belvish, whiffculture, aarfrag, perfumepalace, fragheaven, added_at) VALUES (?, ?, ?, ?, ?, ?, ?)", (frag["name"], frag["link"]["belvish"], frag["link"]["whiffculture"], frag["link"]["aarfrag"], frag["link"]["perfumepalace"], frag["link"]["fragheaven"], datetime.datetime.now()))
-        conn.commit()
+        cursor.execute("INSERT OR IGNORE INTO fragrance (name, belvish, whiffculture, aarfrag, perfumepalace, fragheaven, added_at) VALUES (?, ?, ?, ?, ?, ?, ?)", (frag["name"], frag["link"]["belvish"], frag["link"]["whiffculture"], frag["link"]["aarfrag"], frag["link"]["perfumepalace"], frag["link"]["fragheaven"], datetime.datetime.now().isoformat()))
         conn.close()
 
 def insert_prices(fragprices):
     num = 0
     for frag in fragfile["perfumes"]:
-        cursor.execute("INSERT INTO price_history (fragrance_id, belvish_price, whiffculture_price, aarfrag_price, perfumepalace_price, fragheaven_price, scraped_at) VALUES (?, ?, ?, ?, ?, ?, ?)", (num + 1, fragprices[num]["belvish_price"], fragprices[num]["whiffculture_price"], fragprices[num]["aarfrag_price"], fragprices[num]["perfumepalace_price"], fragprices[num]["fragheaven_price"], datetime.datetime.now()))
-        conn.commit()
+        cursor.execute("INSERT INTO price_history (fragrance_id, belvish_price, whiffculture_price, aarfrag_price, perfumepalace_price, fragheaven_price, scraped_at) VALUES (?, ?, ?, ?, ?, ?, ?)", (num + 1, fragprices[num]["belvish_price"], fragprices[num]["whiffculture_price"], fragprices[num]["aarfrag_price"], fragprices[num]["perfumepalace_price"], fragprices[num]["fragheaven_price"], datetime.datetime.now().isoformat()))
         conn.close()
         num += 1
 
