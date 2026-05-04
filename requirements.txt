@@ -3,5 +3,5 @@ flask-cors
 beautifulsoup4
 requests
 gunicorn
-libsql
+libsql-experimental
 python-dotenv
