@@ -1,6 +1,6 @@
 .frag-track/
 .vscode/
-backend/database.db
-backend/.env
-backend/test.py
-backend/__pycache__/
+database.db
+.env
+test.py
+__pycache__/

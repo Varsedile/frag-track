@@ -27,7 +27,7 @@ fetch(`http://127.0.0.1:5001/fragrances/${ids}`)
     }
     
     document.getElementById("name-frag").innerHTML = frag[1]
-    document.getElementById("photo-frag").src = `assets/${frag[1]}.webp`
+    document.getElementById("photo-frag").src = `/static/assets/${frag[1]}.webp`
 
     document.getElementById("belvish-link").href = frag[2]
     document.getElementById("whiff-culture-link").href = frag[3]

@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template
 from flask_cors import CORS
 import db
 
@@ -9,6 +9,14 @@ app = Flask(__name__)
 CORS(app, origins="http://127.0.0.1:3002")
 
 # Routing grouped data
+
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+@app.route("/fragrance")
+def fragrance_page():
+    return render_template("fragrance.html")
 
 @app.route("/fragrances")
 def fragrance():
