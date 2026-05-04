@@ -4,3 +4,5 @@ database.db
 .env
 test.py
 __pycache__/
+database.db-shm
+database.db-wal
