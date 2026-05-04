@@ -9,15 +9,21 @@ def belvish_scraping(link):
     page_to_scrape = requests.get(link)
     soup = BeautifulSoup(page_to_scrape.text, "html.parser")
     spans = soup.find_all("span", attrs={"class":"f-price-item f-price-item--sale text-xl md:text-2xl prod__price text-color-regular-price"})
-    price = (spans[0].string.replace("Rs.", "").replace(",", "").strip())
-    return price
+    try:
+        price = (spans[0].string.replace("Rs.", "").replace(",", "").strip())
+        return price
+    except:
+        return None
 
 def whiffculture_scraping(link):
     page_to_scrape = requests.get(link)
     soup = BeautifulSoup(page_to_scrape.text, "html.parser")
     spans = soup.find_all("span", attrs={"class":"price-item price-item--regular"})
-    price = (spans[0].string.replace("Rs.", "").replace(",", "").strip())
-    return price
+    try:
+        price = (spans[0].string.replace("Rs.", "").replace(",", "").strip())
+        return price
+    except:
+        return None
 
 def aarfrag_scraping(link):
     page_to_scrape = requests.get(link)
@@ -25,22 +31,31 @@ def aarfrag_scraping(link):
     spans = soup.find_all("strong", attrs={"class":"h2 fw-600 text-primary"})
     if len(spans) == 0:
         spans = soup.find_all("strong", attrs={"class":"h3 fw-600 text-primary"})
-    price = (spans[0].text.replace("₹", "").replace(",", "").strip())
-    return price
+    try:
+        price = (spans[0].text.replace("₹", "").replace(",", "").strip())
+        return price
+    except:
+        None
 
 def perfumepalace_scraping(link):
     page_to_scrape = requests.get(link)
     soup = BeautifulSoup(page_to_scrape.text, "html.parser")
     spans = soup.find_all("span", attrs={"class":"product__price on-sale"})
-    price = (spans[0].text.replace("Rs.", "").replace(",", "").strip())
-    return price
+    try:
+        price = (spans[0].text.replace("Rs.", "").replace(",", "").strip())
+        return price
+    except:
+        return None
 
 def fragheaven_scraping(link):
     page_to_scrape = requests.get(link)
     soup = BeautifulSoup(page_to_scrape.text, "html.parser")
     spans = soup.find_all("div", attrs={"class":"t4s-product-price"})
-    price = (spans[0].text.replace("Rs.", "").replace(",", "").split(' ', 2)[2].split('\n', 1)[0].strip())
-    return price
+    try:
+        price = (spans[0].text.replace("Rs.", "").replace(",", "").split(' ', 2)[2].split('\n', 1)[0].strip())
+        return price
+    except:
+        return None
 
 # Reading the JSON file and scraping.
 

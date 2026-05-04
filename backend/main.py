@@ -8,10 +8,14 @@ app = Flask(__name__)
 
 CORS(app, origins="http://127.0.0.1:3002")
 
+# Routing grouped data
+
 @app.route("/fragrances")
 def fragrance():
     data = db.get_all_fragrances()
     return jsonify(data)
+
+# Routing seperate data by ID
 
 @app.route("/fragrances/<int:id>")
 def show_id(id):
