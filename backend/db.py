@@ -33,3 +33,8 @@ def get_all_fragrances():
     cursor.execute("SELECT * FROM fragrance LEFT JOIN price_history ON fragrance.id = price_history.fragrance_id GROUP BY fragrance_id")
     fragrances = cursor.fetchall()
     return fragrances
+
+def get_one_fragrance(id):
+    cursor.execute(f"SELECT * FROM fragrance LEFT JOIN price_history ON fragrance.id = price_history.fragrance_id WHERE fragrance.id = {id}")
+    fragrance = cursor.fetchall()
+    return fragrance
