@@ -4,11 +4,11 @@ import datetime
 
 # Importing json data.
 
-fragfile = json.load(open("backend/fragrances.json"))
+fragfile = json.load(open("fragrances.json"))
 
 # Database setup for adding scraped data.
 
-conn = sqlite3.connect('backend/database.db')
+conn = sqlite3.connect('database.db', check_same_thread=False)
 cursor = conn.cursor()
 
 def setup_database():
@@ -28,3 +28,8 @@ def insert_prices(fragprices):
         cursor.execute("INSERT INTO price_history (fragrance_id, belvish_price, whiffculture_price, aarfrag_price, perfumepalace_price, fragheaven_price, scraped_at) VALUES (?, ?, ?, ?, ?, ?, ?)", (num + 1, fragprices[num]["belvish_price"], fragprices[num]["whiffculture_price"], fragprices[num]["aarfrag_price"], fragprices[num]["perfumepalace_price"], fragprices[num]["fragheaven_price"], datetime.datetime.now()))
         conn.commit()
         num += 1
+
+def get_all_fragrances():
+    cursor.execute("SELECT * FROM fragrance LEFT JOIN price_history ON fragrance.id = price_history.fragrance_id GROUP BY fragrance_id")
+    fragrances = cursor.fetchall()
+    return fragrances

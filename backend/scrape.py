@@ -44,12 +44,11 @@ def fragheaven_scraping(link):
 
 # Reading the JSON file and scraping.
 
-fragfile = json.load(open("backend/fragrances.json"))
+fragfile = json.load(open("fragrances.json"))
 
 fragprices = []
 
 for frag in fragfile["perfumes"]:
-    print("done with " + frag["name"])
     fragprices.append({
     "belvish_price" : belvish_scraping(frag["link"]["belvish"]),
     "whiffculture_price" : whiffculture_scraping(frag["link"]["whiffculture"]),
