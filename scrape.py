@@ -58,22 +58,19 @@ def fragheaven_scraping(link):
         return None
 
 # Reading the JSON file and scraping.
+def run_scraping():
+    fragfile = json.load(open("fragrances.json"))
+    fragprices = []
+    for frag in fragfile["perfumes"]:
+        fragprices.append({
+        "belvish_price" : belvish_scraping(frag["link"]["belvish"]),
+        "whiffculture_price" : whiffculture_scraping(frag["link"]["whiffculture"]),
+        "aarfrag_price" : aarfrag_scraping(frag["link"]["aarfrag"]),
+        "perfumepalace_price" : perfumepalace_scraping(frag["link"]["perfumepalace"]),
+        "fragheaven_price" : fragheaven_scraping(frag["link"]["fragheaven"]),
+        })
 
-fragfile = json.load(open("fragrances.json"))
-
-fragprices = []
-
-for frag in fragfile["perfumes"]:
-    fragprices.append({
-    "belvish_price" : belvish_scraping(frag["link"]["belvish"]),
-    "whiffculture_price" : whiffculture_scraping(frag["link"]["whiffculture"]),
-    "aarfrag_price" : aarfrag_scraping(frag["link"]["aarfrag"]),
-    "perfumepalace_price" : perfumepalace_scraping(frag["link"]["perfumepalace"]),
-    "fragheaven_price" : fragheaven_scraping(frag["link"]["fragheaven"]),
-    })
-
-# Running database functions to add scraped data to the database.
-
-db.setup_database()
-db.insert_frags(fragfile)
-db.insert_prices(fragprices)
+    # Running database functions to add scraped data to the database.
+    db.setup_database()
+    db.insert_frags(fragfile)
+    db.insert_prices(fragprices)

@@ -1,6 +1,11 @@
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, request
 from flask_cors import CORS
 import db
+from dotenv import load_dotenv
+import os
+import scrape
+
+load_dotenv()
 
 app = Flask(__name__)
  
@@ -36,6 +41,15 @@ def show_id(id):
 def show_price_history(id):
     data = db.get_price_history(id)
     return jsonify(data)
+
+@app.route("/run-scraper")
+def run_scraper():
+    token = request.args.get("token")
+    if token == os.getenv("secret_token"):
+        scrape.run_scraping()
+        return "OK", 200
+    else: 
+        return "Unauthorized", 403
 
 if __name__ == '__main__':
     app.run(debug=True, port=5001)
