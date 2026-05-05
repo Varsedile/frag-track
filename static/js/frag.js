@@ -36,6 +36,10 @@ fetch(`https://frag-track-app.onrender.com/fragrances/${ids}`)
     document.getElementById("fragrance-haven-link").href = frag[6]
 
     elements.forEach(item => {
+        if (frag[item.id] == null) {
+            document.getElementById(item.element).innerHTML = "N/A"
+            document.getElementById(item.element).classList.add("text-red-400")
+        }
         if (minAmt == frag[item.id]) {
             document.getElementById(item.element).innerHTML = `₹${frag[item.id]}`
             document.getElementById(item.element).classList.add("text-black")
