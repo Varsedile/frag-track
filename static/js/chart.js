@@ -113,6 +113,8 @@ fetch(`https://frag-track-app.onrender.com/fragrances/${ids}/history`)
     const havenArray = [];
     const dateTime = [];
 
+    console.log(frag[index+7])
+
     data.forEach(frag => {
         belvishArray.push(frag[index+2])
         whiffArray.push(frag[index+3])
