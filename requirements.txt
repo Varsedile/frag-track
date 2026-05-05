@@ -4,3 +4,5 @@ beautifulsoup4
 requests
 gunicorn
 python-dotenv
+supabase
+psycopg2
