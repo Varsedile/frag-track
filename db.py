@@ -38,7 +38,7 @@ def insert_prices(fragprices):
 
 # Querying databases for frontend
 def get_all_fragrances():
-    cursor.execute("SELECT DISTINCT ON (fragrance.id) * FROM fragrance LEFT JOIN price_history ON fragrance.id = price_history.fragrance_id ORDER BY fragrance_id, scraped_at DESC")
+    cursor.execute("SELECT DISTINCT ON (fragrance.id) * FROM fragrance LEFT JOIN price_history ON fragrance.id = price_history.fragrance_id ORDER BY fragrance.id, scraped_at DESC")
     fragrances = cursor.fetchall()
     return fragrances
 
