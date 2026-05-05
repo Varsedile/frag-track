@@ -21,7 +21,7 @@ fetch(`https://frag-track-app.onrender.com/fragrances/${ids}`)
     ]
     
     for (let i = 10; i < 15; i++) {
-        if (frag[i] == "null" || frag[item.id] == null) {
+        if (frag[i] == "null" || frag[i] == null) {
             continue
         }
         if (minAmt > frag[i]) {
