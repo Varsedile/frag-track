@@ -21,6 +21,9 @@ fetch(`https://frag-track-app.onrender.com/fragrances/${ids}`)
     ]
     
     for (let i = 10; i < 15; i++) {
+        if (frag[i] == "null") {
+            continue
+        }
         if (minAmt > frag[i]) {
             minAmt = frag[i]
         }
@@ -36,9 +39,10 @@ fetch(`https://frag-track-app.onrender.com/fragrances/${ids}`)
     document.getElementById("fragrance-haven-link").href = frag[6]
 
     elements.forEach(item => {
-        if (frag[item.id] == null) {
+        if (frag[item.id] == "null" || frag[item.id] == null) {
             document.getElementById(item.element).innerHTML = "N/A"
-            document.getElementById(item.element).classList.add("text-red-400")
+            document.getElementById(item.element).classList.add("text-gray-400")
+            return
         }
         if (minAmt == frag[item.id]) {
             document.getElementById(item.element).innerHTML = `₹${frag[item.id]}`
