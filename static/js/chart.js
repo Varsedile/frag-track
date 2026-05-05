@@ -119,8 +119,7 @@ fetch(`https://frag-track-app.onrender.com/fragrances/${ids}/history`)
         aarArray.push(frag[index+4])
         palaceArray.push(frag[index+5])
         havenArray.push(frag[index+6])
-        console.log(frag[index+7])
-        dateTime.push(new Date(frag[index+7].split(" ")[0]).toLocaleDateString('en-US', {month: 'long', day: 'numeric'}))
+        dateTime.push(new Date(frag[index+7]).toLocaleDateString('en-US', {month: 'long', day: 'numeric'}))
     })
 
     chart.updateSeries([
