@@ -6,7 +6,7 @@ app = Flask(__name__)
  
 # Allowed port to connect to flask server
 
-CORS(app, origins="http://127.0.0.1:3002")
+CORS(app, origins="https://frag-track-app.onrender.com")
 
 # Routing grouped data
 
