@@ -102,7 +102,7 @@ let index = 0;
 
 // Adding values to the chart
 
-fetch(`https://frag-track-app.onrender.com/fragrances/${ids}/history`)
+fetch(`https://frag-track-app-production.up.railway.app/fragrances/${ids}/history`)
   .then(response => response.json())
   .then(data => {
 

@@ -1,6 +1,6 @@
 // Listing products in the index page
 
-fetch("https://frag-track-app.onrender.com/fragrances")
+fetch("https://frag-track-app-production.up.railway.app/fragrances")
   .then(response => response.json())
   .then(data => {
     data.forEach(frag => {

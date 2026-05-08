@@ -5,7 +5,7 @@ ids = params.get("id");
 
 // Inserting name, photos, links and prices of the products
 
-fetch(`https://frag-track-app.onrender.com/fragrances/${ids}`)
+fetch(`https://frag-track-app-production.up.railway.app/fragrances/${ids}`)
   .then(response => response.json())
   .then(data => {
     data.forEach(frag => {
