@@ -15,18 +15,26 @@ conn = psycopg2.connect(DATABASE_URL)
 
 # Importing json data.
 fragfile = json.load(open("fragrances.json"))
+dealerfile = json.load(open("dealers.json"))
 
 # Database setup for adding scraped data.
 cursor = conn.cursor()
 
 def setup_database():
-    cursor.execute("CREATE TABLE IF NOT EXISTS fragrance (id SERIAL PRIMARY KEY, name TEXT UNIQUE, belvish TEXT, whiffculture TEXT, aarfrag TEXT, perfumepalace TEXT, fragheaven TEXT, added_at TIMESTAMP)")
-    cursor.execute("CREATE TABLE IF NOT EXISTS price_history (id SERIAL PRIMARY KEY, fragrance_id INTEGER, belvish_price FLOAT, whiffculture_price FLOAT, aarfrag_price FLOAT, perfumepalace_price FLOAT, fragheaven_price FLOAT, scraped_at TIMESTAMP, FOREIGN KEY(fragrance_id) REFERENCES fragrance(id))")
+    cursor.execute("CREATE TABLE IF NOT EXISTS fragrance (id SERIAL PRIMARY KEY, name TEXT UNIQUE, added_at TIMESTAMP)")
+    cursor.execute("CREATE TABLE IF NOT EXISTS fragrance_link (id SERIAL PRIMARY KEY, fragrance_id INT, site_name TEXT UNIQUE, url TEXT, FOREIGN KEY(fragrance_id) REFERENCES fragrance(id))")
+    cursor.execute("CREATE TABLE IF NOT EXISTS price_history (id SERIAL PRIMARY KEY, fragrance_id INT, site_name TEXT UNIQUE, price INT, status VARCHAR(10), scraped_at TIMESTAMP, FOREIGN KEY(fragrance_id) REFERENCES fragrance(id))")
 
 # Adding scraped data to the database.
-def insert_frags(fragfile):
-    for frag in fragfile["perfumes"]:
-        cursor.execute("INSERT INTO fragrance (name, belvish, whiffculture, aarfrag, perfumepalace, fragheaven, added_at) VALUES (%s, %s, %s, %s, %s, %s, %s) ON CONFLICT DO NOTHING", (frag["name"], frag["link"]["belvish"], frag["link"]["whiffculture"], frag["link"]["aarfrag"], frag["link"]["perfumepalace"], frag["link"]["fragheaven"], datetime.datetime.now()))
+# def insert_frags(fragfile):
+#     for frag in fragfile["perfumes"]:
+#         cursor.execute("INSERT INTO fragrance (name, belvish, whiffculture, aarfrag, perfumepalace, fragheaven, added_at) VALUES (%s, %s, %s, %s, %s, %s, %s) ON CONFLICT DO NOTHING", (frag["name"], frag["link"]["belvish"], frag["link"]["whiffculture"], frag["link"]["aarfrag"], frag["link"]["perfumepalace"], frag["link"]["fragheaven"], datetime.datetime.now()))
+#         conn.commit()
+
+def insert_frags(dealerfile):
+    for dealer in dealerfile["websites"]:
+        cursor.execute("INSERT INTO fragrance (name, added_at) VALUES (%s, %s) ON CONFLICT DO NOTHING", (dealer["name"], datetime.datetime.now()))
+        cursor.execute("INSERT INTO fragrance_link (site_name, url) VALUES (%s, %s) ON CONFLICT DO NOTHING", (dealer["name"], dealer["link"]))
         conn.commit()
 
 def insert_prices(fragprices):

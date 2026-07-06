@@ -59,13 +59,13 @@ def fragheaven_scraping(link):
         return None
     
 def check_robots(robots):
-    rp = urobot.RobotFileParser()
     dealers = json.load(open("dealers.json"))
     for dealer in dealers["websites"]:
         URL = dealer["link"] + "/robots.txt"
         response = requests.get(URL)
         text = response.text
         lines = text.splitlines()
+        rp = urobot.RobotFileParser()
         rp.parse(lines)
         if rp.can_fetch("*", dealer["product-page"]): 
             robots.update({dealer["name"]: True})
@@ -78,7 +78,6 @@ def run_scraping():
     fragprices = []
     robots = {}
     check_robots(robots)
-    print(robots)
     for frag in fragfile["perfumes"]:
         fragprices.append({
         "belvish_price" : belvish_scraping(frag["link"]["belvish"]) if robots["belvish"] else None,
