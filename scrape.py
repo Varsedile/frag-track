@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 import json
 import db
+import urllib.robotparser as urobot
 
 # Scraping functions for each website.
 
@@ -56,18 +57,35 @@ def fragheaven_scraping(link):
         return price
     except:
         return None
+    
+def check_robots(robots):
+    rp = urobot.RobotFileParser()
+    dealers = json.load(open("dealers.json"))
+    for dealer in dealers["websites"]:
+        URL = dealer["link"] + "/robots.txt"
+        response = requests.get(URL)
+        text = response.text
+        lines = text.splitlines()
+        rp.parse(lines)
+        if rp.can_fetch("*", dealer["product-page"]): 
+            robots.update({dealer["name"]: True})
+        else:
+            robots.update({dealer["name"]: False})
 
 # Reading the JSON file and scraping.
 def run_scraping():
     fragfile = json.load(open("fragrances.json"))
     fragprices = []
+    robots = {}
+    check_robots(robots)
+    print(robots)
     for frag in fragfile["perfumes"]:
         fragprices.append({
-        "belvish_price" : belvish_scraping(frag["link"]["belvish"]),
-        "whiffculture_price" : whiffculture_scraping(frag["link"]["whiffculture"]),
-        "aarfrag_price" : aarfrag_scraping(frag["link"]["aarfrag"]),
-        "perfumepalace_price" : perfumepalace_scraping(frag["link"]["perfumepalace"]),
-        "fragheaven_price" : fragheaven_scraping(frag["link"]["fragheaven"]),
+        "belvish_price" : belvish_scraping(frag["link"]["belvish"]) if robots["belvish"] else None,
+        "whiffculture_price" : whiffculture_scraping(frag["link"]["whiffculture"]) if robots["whiffculture"] else None,
+        "aarfrag_price" : aarfrag_scraping(frag["link"]["aarfrag"]) if robots["aarfrag"] else None,
+        "perfumepalace_price" : perfumepalace_scraping(frag["link"]["perfumepalace"]) if robots["perfumepalace"] else None,
+        "fragheaven_price" : fragheaven_scraping(frag["link"]["fragheaven"]) if robots["fragheaven"] else None,
         })
 
     # Running database functions to add scraped data to the database.
