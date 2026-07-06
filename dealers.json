@@ -1,0 +1,29 @@
+{
+    "websites" : [
+        {
+            "name": "belvish",
+            "link": "https://belvish.com",
+            "product-page": "https://belvish.com/products"
+        },
+        {
+            "name": "whiffculture",
+            "link": "https://whiffculture.com",
+            "product-page": "https://www.whiffculture.com/products"
+        },
+        {
+            "name": "aarfrag",
+            "link": "https://aarfragrance.com",
+            "product-page": "https://www.aarfragrances.com/product"
+        },
+        {
+            "name": "perfumepalace",
+            "link": "https://perfumepalace.com",
+            "product-page": "https://perfumepalace.in/products"
+        },
+        {
+            "name": "fragheaven",
+            "link": "https://fragranceheaven.com",
+            "product-page": "https://www.fragranceheaven.in/products"
+        }
+    ]
+}
