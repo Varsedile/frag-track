@@ -2,8 +2,9 @@
 .vscode/
 database.db
 .env
-test.py
+tests
 __pycache__/
 database.db-shm
 database.db-wal
 postgres
+static/js/test.js

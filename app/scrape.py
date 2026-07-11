@@ -1,9 +1,12 @@
 from bs4 import BeautifulSoup
 import requests
 import json
-import db
+import app.db as db
 import urllib.robotparser as urobot
 import random
+import os
+
+project_root = os.path.dirname(os.path.dirname(__file__))
 
 def test_scraping(link):
     return random.randint(3000, 6000)
@@ -35,7 +38,7 @@ def website_scraping(link):
             price = (spans[0].text.replace("₹", "").replace(",", "").replace(".", "").strip())
             return price
         except:
-            None
+            return None
     if "perfumepalace.com" in link:
         spans = soup.find_all("span", attrs={"class":"product__price on-sale"})
         try:
@@ -54,7 +57,7 @@ def website_scraping(link):
 # Robots checker for each website
 
 def check_robots(robots):
-    dealers = json.load(open("dealers.json"))
+    dealers = json.load(open(os.path.join(project_root, "data", "dealers.json")))
     for dealer in dealers["websites"]:
         URL = dealer["link"] + "/robots.txt"
         response = requests.get(URL)
@@ -70,8 +73,8 @@ def check_robots(robots):
 # Reading the JSON file and scraping.
 def run_scraping():
     # Initializing and checking robots
-    fragfile = json.load(open("fragrances.json"))
-    dealerfile = json.load(open("dealers.json"))
+    fragfile = json.load(open(os.path.join(project_root, "data", "fragrances.json")))
+    dealerfile = json.load(open(os.path.join(project_root, "data", "dealers.json")))
     fragprices = []
     # robots = {}
     # check_robots(robots)

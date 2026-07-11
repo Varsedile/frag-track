@@ -1,9 +1,9 @@
 from flask import Flask, jsonify, render_template, request
 from flask_cors import CORS
-import db
+import app.db as db
 from dotenv import load_dotenv
 import os
-import scrape
+import app.scrape as scrape
 
 load_dotenv()
 
