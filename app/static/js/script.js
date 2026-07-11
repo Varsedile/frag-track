@@ -1,5 +1,4 @@
 // Listing products in the index page
-
 fetch("/fragrances")
   .then(response => response.json())
   .then(data => {

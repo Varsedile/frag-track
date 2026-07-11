@@ -1,5 +1,4 @@
 // Function to capitalize every first letter of a word
-
 function capitalizeFirstLetter(str) {
   var lower = String(str).toLowerCase().replace("-", " ");
   return lower.replace(/(^| )(\w)/g, function(x) {
@@ -8,7 +7,6 @@ function capitalizeFirstLetter(str) {
 }
 
 // Options of the chart
-
 const options = {
   chart: {
     height: "100%",
@@ -76,7 +74,6 @@ chart.render();
 let index = 0;
 
 // Adding values to the chart
-
 fetch(`/fragrances/${ids}/history`)
   .then(response => response.json())
   .then(data => {
