@@ -34,7 +34,7 @@ def fragrance():
 @app.route("/fragrances/<int:id>")
 def show_id(id):
     data = db.get_one_fragrance(id)
-    return jsonify(data)
+    return jsonify(None)
 
 # Routing price history by ID
 

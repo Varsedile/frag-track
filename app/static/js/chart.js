@@ -78,24 +78,29 @@ fetch(`/fragrances/${ids}/history`)
   .then(response => response.json())
   .then(data => {
 
-    const priceArray = {}
-    const dateTime = [];
-
-    data.forEach(frag => {
-      checkArray()
-      function checkArray() {
-        if (priceArray[frag.site_name]) {
-          priceArray[frag.site_name].push(frag.price)
-        } else {
-          priceArray[frag.site_name] = []
-          checkArray()
+    var priceArray = {};
+    var dateTime = [];
+    
+    try {
+      data.forEach(frag => {
+        checkArray()
+        function checkArray() {
+          if (priceArray[frag.site_name]) {
+            priceArray[frag.site_name].push(frag.price);
+          } else {
+            priceArray[frag.site_name] = [];
+            checkArray();
+          }
         }
-      }
-      dateTime.push(new Date(frag.scraped_at).toLocaleDateString('en-US', {month: 'long', day: 'numeric'}))
-      })
+        dateTime.push(new Date(frag.scraped_at).toLocaleDateString('en-US', {month: 'long', day: 'numeric'}));
+        })
+    } catch (error) {
+      console.log("Could not retrieve data");
+      document.getElementById("line-chart").remove();
+    }
 
-    const keys = Object.keys(priceArray)
-    const seriesArray = []
+    const keys = Object.keys(priceArray);
+    const seriesArray = [];
 
     for(key of keys) {
       seriesArray.push({

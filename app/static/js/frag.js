@@ -14,6 +14,7 @@ function capitalizeFirstLetter(str) {
 fetch(`/fragrances/${ids}`)
   .then(response => response.json())
   .then(data => {
+    try {
     data.forEach(frag => {
     document.getElementById("name-frag").innerHTML = `${frag.name}`
     document.getElementById("photo-frag").src = `/static/assets/${frag.name}.webp`
@@ -32,4 +33,22 @@ fetch(`/fragrances/${ids}`)
                   </li>`
     container.innerHTML += card
     })
+  } catch (error) {
+    console.log("Could not retrieve data")
+    document.getElementById("name-frag").innerHTML = "Error"
+    document.getElementById("photo-frag").src = "/static/assets/error.png"
+    const container = document.getElementById("dealer-list")
+    const card = `<li class="py-4 sm:py-4">
+                  <div class="flex items-center gap-2">
+                    <div class="flex-1 min-w-0 ms-2">
+                        <p class="font-medium text-heading truncate">
+                            <a>Error</a>
+                        </p>
+                      </div>
+                        <div class="inline-flex items-center font-medium text-heading">N/A
+                      </div>
+                    </div>
+                  </li>`
+    container.innerHTML += card
+  }
 })
