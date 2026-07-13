@@ -1,10 +1,11 @@
-.frag-track/
-.vscode/
+.frag-track
+.venv
+.vscode
 database.db
 .env
 .env.docker
 tests
-__pycache__/
+__pycache__
 database.db-shm
 database.db-wal
 airflow/postgres
