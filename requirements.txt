@@ -1,8 +1,0 @@
-flask
-flask-cors
-beautifulsoup4
-requests
-gunicorn
-python-dotenv
-supabase
-psycopg2

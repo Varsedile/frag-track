@@ -2,9 +2,10 @@
 .vscode/
 database.db
 .env
+.env.docker
 tests
 __pycache__/
 database.db-shm
 database.db-wal
-postgres
+airflow/postgres
 static/js/test.js
