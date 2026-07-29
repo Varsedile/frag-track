@@ -52,7 +52,7 @@ def insert_values(fragprices):
 def get_all_fragrances():
     cursor = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
     try:
-        cursor.execute("SELECT DISTINCT ON (fragrance.id) * FROM fragrance LEFT JOIN price_history ON fragrance.id = price_history.fragrance_id ORDER BY fragrance.id, scraped_at DESC")
+        cursor.execute("SELECT fragrance.* FROM fragrance")
         fragrances = cursor.fetchall()
     except Exception as e:
         conn.rollback()
@@ -63,21 +63,7 @@ def get_all_fragrances():
 def get_one_fragrance(id):
     cursor = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
     try:
-        cursor.execute("""
-                        WITH info AS (
-                        SELECT fragrance.id, name, site_name, price, scraped_at
-                        FROM fragrance
-                        LEFT JOIN price_history
-                        ON fragrance.id = price_history.fragrance_id
-                        WHERE fragrance.id = %s)
-                    
-                        SELECT DISTINCT ON (site_name) info.id, name, info.site_name, price, scraped_at, url
-                        FROM info
-                        LEFT JOIN fragrance_link
-                        ON info.id = fragrance_link.fragrance_id
-                        AND info.site_name = fragrance_link.site_name
-                        ORDER BY site_name, scraped_at DESC
-                    """, (id,))
+        cursor.execute("SELECT DISTINCT ON (site_name) * FROM one_fragrance WHERE id = %s", (id,))
         fragrance = cursor.fetchall()
     except Exception as e:
         conn.rollback()

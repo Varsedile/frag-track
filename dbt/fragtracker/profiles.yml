@@ -1,0 +1,12 @@
+fragtracker:
+  outputs:
+    dev:
+      dbname: db
+      host: db
+      pass: db_password
+      port: 5432
+      schema: public
+      threads: 1
+      type: postgres
+      user: db_user
+  target: dev

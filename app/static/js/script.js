@@ -11,7 +11,7 @@ fetch("/fragrances")
                             <div class="mt-4 flex justify-between">
                             <div>
                                 <h3 class="text-sm text-gray-700">
-                                <a href="fragrance?id=${frag.fragrance_id}">
+                                <a href="fragrance?id=${frag.id}">
                                 <span aria-hidden="true" class="absolute inset-0"></span>
                                 ${frag.name}
                             </a>
