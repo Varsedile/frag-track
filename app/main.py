@@ -1,9 +1,9 @@
 from flask import Flask, jsonify, render_template, request
 from flask_cors import CORS
-import app.db as db
+import db
 from dotenv import load_dotenv
 import os
-import app.scrape as scrape
+import scrape
 
 load_dotenv()
 
@@ -53,4 +53,4 @@ def run_scraper():
         return "Unauthorized", 403
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5001)
+    app.run(debug=True, host="0.0.0.0", port=5001)

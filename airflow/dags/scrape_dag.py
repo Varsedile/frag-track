@@ -41,19 +41,16 @@ with DAG(
     
     dbt_task = DockerOperator(
     task_id="dbt_run",
-    image="ghcr.io/dbt-labs/dbt-postgres",
-    working_dir="/usr/app",
+    image="frag-track-dbt:latest",
+    working_dir="/dbt",
     mounts=[
         Mount(source="/Users/vanshkhetarpal/Code/Repos/frag-track-in/dbt/fragtracker",
-               target="/usr/app",
-               type="bind"),
-        Mount(source="/Users/vanshkhetarpal/Code/Repos/frag-track-in/dbt/fragtracker/profiles.yml",
-               target="/root/.dbt/profiles.yml",
+               target="/dbt",
                type="bind"),
     ],
     network_mode="frag-track-in_my_network",
     docker_url="unix://var/run/docker.sock",
-    command="run",
+    command="uv run --project /app dbt run --project-dir /dbt --profiles-dir /dbt",
     auto_remove="success"
 )
     

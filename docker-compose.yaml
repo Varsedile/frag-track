@@ -17,7 +17,7 @@ services:
     container_name: airflow_container
     image: apache/airflow:3.3.0
     env_file:
-      - ${ENV_FILE_PATH:-.env.docker}
+      - ${ENV_FILE_PATH:-.env}
     ports:
       - 8080:8080
     volumes:
@@ -28,6 +28,8 @@ services:
       - ./app:/opt/airflow/app
       - ./data:/opt/airflow/data
       - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - PYTHONPATH=/opt/airflow:/opt/airflow/app
     depends_on:
       - db
     networks:
@@ -37,26 +39,35 @@ services:
 
   dbt:
     container_name: dbt_container
-    image: ghcr.io/dbt-labs/dbt-postgres
-    platform: linux/amd64
+    build:
+      dockerfile: Dockerfile
+    image: frag-track-dbt:latest
     volumes:
-      - ./dbt/fragtracker:/usr/app
-      - ./dbt/fragtracker:/root/.dbt
+      - ./dbt/fragtracker:/dbt
+    working_dir: /dbt
+    networks:
+      - my_network
+    command: uv run --project /app dbt run --project-dir /dbt --profiles-dir /dbt
+    
+  python:
+    container_name: python_container
+    build:
+      dockerfile: Dockerfile
+    env_file:
+      - ${ENV_FILE_PATH:-.env}
+    volumes:
+      - ./app:/app
+      - ./data:/data
+      - /app/.venv
+    environment:
+      - PATH=/app/.venv/bin:$PATH
+    ports:
+      - 5001:5001
     depends_on:
       - db
     networks:
       - my_network
-    command: run
-    
-  cloudflared:
-    image: cloudflare/cloudflared:latest
-    container_name: cloudflared
-    restart: unless-stopped
-    command: tunnel --no-autoupdate run
-    environment:
-      - TUNNEL_TOKEN=${CLOUDFLARE_TUNNEL_TOKEN}
-    networks:
-      - my_network
+    command: uv run main.py
 
 networks:
   my_network:

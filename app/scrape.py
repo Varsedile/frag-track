@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 import json
-import app.db as db
+import db
 import urllib.robotparser as urobot
 import random
 import os
