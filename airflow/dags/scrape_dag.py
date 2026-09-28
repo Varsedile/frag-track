@@ -5,6 +5,9 @@ import sys
 from airflow.providers.slack.operators.slack_webhook import SlackWebhookOperator
 from airflow.providers.docker.operators.docker import DockerOperator
 from docker.types import Mount
+import os
+
+ABSOLUTE_PATH = os.environ["ABSOLUTE_PATH"]
 
 sys.path.append("/opt/airflow")
 import app.scrape as scrape
@@ -44,7 +47,7 @@ with DAG(
     image="frag-track-dbt:latest",
     working_dir="/dbt",
     mounts=[
-        Mount(source="/Users/vanshkhetarpal/Code/Repos/frag-track-in/dbt/fragtracker",
+        Mount(source=f"{ABSOLUTE_PATH}/dbt/fragtracker",
                target="/dbt",
                type="bind"),
     ],
