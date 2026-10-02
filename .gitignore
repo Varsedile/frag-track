@@ -9,3 +9,7 @@ database.db-shm
 database.db-wal
 postgres/
 logs/
+airflow/logs/
+airflow/config/passwords.json
+airflow/config/*.generated
+airflow/**/__pycache__/
