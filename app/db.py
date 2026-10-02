@@ -42,7 +42,7 @@ def insert_values(fragprices):
             cursor.execute("INSERT INTO fragrance (name, added_at) VALUES (%s, %s) ON CONFLICT DO NOTHING", (frag["name"], datetime.datetime.now()))
             for dealer in dealerfile["websites"]:
                 cursor.execute("INSERT INTO fragrance_link (fragrance_id, site_name, url) VALUES ((SELECT id FROM fragrance WHERE name = %s), %s, %s) ON CONFLICT DO NOTHING", (frag["name"], dealer["name"], frag["link"][dealer["name"]]))
-                cursor.execute("INSERT INTO price_history (fragrance_id, site_name, price, status, scraped_at) VALUES ((SELECT id FROM fragrance WHERE name = %s), %s, %s, %s, %s)", (frag["name"], dealer["name"], [prices["price"] for prices in fragprices if dealer["name"] == prices["website"]][0], ["ok" if prices["price"] != None else "failed" for prices in fragprices][0], datetime.datetime.now()))
+                cursor.execute("INSERT INTO price_history (fragrance_id, site_name, price, status, scraped_at) VALUES ((SELECT id FROM fragrance WHERE name = %s), %s, %s, %s, %s)", (frag["name"], dealer["name"], [prices["price"] for prices in fragprices if dealer["name"] == prices["website"] and prices["name"] == frag["name"]][0], "ok" if [prices["price"] for prices in fragprices if dealer["name"] == prices["website"] and prices["name"] == frag["name"]][0] != None else "failed", datetime.datetime.now()))
         conn.commit()
     except Exception as e:
         conn.rollback()

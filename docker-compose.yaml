@@ -42,12 +42,7 @@ services:
     build:
       dockerfile: Dockerfile
     image: frag-track-dbt:latest
-    volumes:
-      - ./dbt/fragtracker:/dbt
-    working_dir: /dbt
-    networks:
-      - my_network
-    command: uv run --project /app dbt run --project-dir /dbt --profiles-dir /dbt
+    command: ["true"]
     
   python:
     container_name: python_container
