@@ -17,7 +17,8 @@ services:
   af:
     container_name: airflow_container
     image: apache/airflow:3.3.0
-    user: "50000:${DOCKER_GID}"
+    group_add:
+    - 0
     env_file:
       - ${ENV_FILE_PATH:-.env}
     ports:
@@ -34,7 +35,7 @@ services:
       - PYTHONPATH=/opt/airflow:/opt/airflow/app
       - AIRFLOW__CORE__SIMPLE_AUTH_MANAGER_USERS=admin:admin
       - AIRFLOW__CORE__SIMPLE_AUTH_MANAGER_PASSWORDS_FILE=/opt/airflow/config/passwords.json
-      - AIRFLOW__CORE__FERNET_KEY: ${AIRFLOW__CORE__FERNET_KEY}
+      - AIRFLOW__CORE__FERNET_KEY:${AIRFLOW__CORE__FERNET_KEY}
     depends_on:
       - db
     networks:

@@ -43,9 +43,10 @@ with DAG(
 )
     
     dbt_task = DockerOperator(
-    task_id="dbt_run",
+    task_id="dbt_task",
     image="frag-track-dbt:latest",
     working_dir="/dbt",
+    mount_tmp_dir=False,
     mounts=[
         Mount(source=f"{ABSOLUTE_PATH}/dbt/fragtracker",
                target="/dbt",
