@@ -3,7 +3,7 @@ services:
     container_name: postgres_container
     image: postgres:17.10
     ports:
-      - "127.0.0.1:5432:5432"
+      - "${HOST_IP:-127.0.0.1}:5432:5432"
     volumes:
       - ./postgres:/var/lib/postgresql/data
     environment:
@@ -17,10 +17,11 @@ services:
   af:
     container_name: airflow_container
     image: apache/airflow:3.3.0
+    user: "50000:987"
     env_file:
       - ${ENV_FILE_PATH:-.env}
     ports:
-      - "127.0.0.1:8080:8080"
+      - "${HOST_IP:-127.0.0.1}:8080:8080"
     volumes:
       - ./airflow/dags:/opt/airflow/dags
       - ./airflow/logs:/opt/airflow/logs
@@ -61,7 +62,7 @@ services:
     environment:
       - PATH=/app/.venv/bin:$PATH
     ports:
-      - 5001:5001
+      - "5001:5001"
     depends_on:
       - db
     networks:
