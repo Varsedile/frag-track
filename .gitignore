@@ -13,3 +13,4 @@ airflow/logs/
 airflow/config/passwords.json
 airflow/config/*.generated
 airflow/**/__pycache__/
+airflow/airflow.cfg
