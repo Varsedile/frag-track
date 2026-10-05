@@ -18,7 +18,7 @@ services:
     container_name: airflow_container
     image: apache/airflow:3.3.0
     group_add:
-    - 0
+    - ${DOCKER_GID:-0}
     env_file:
       - ${ENV_FILE_PATH:-.env}
     ports:
