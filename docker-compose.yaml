@@ -10,6 +10,12 @@ services:
       POSTGRES_DB: ${PG_DATABASE}
       POSTGRES_USER: ${PG_USERNAME}
       POSTGRES_PASSWORD: ${PG_PASSWORD}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${PG_USERNAME} -d ${PG_DATABASE}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
     networks:
       - my_network
     restart: unless-stopped
@@ -35,9 +41,10 @@ services:
       - PYTHONPATH=/opt/airflow:/opt/airflow/app
       - AIRFLOW__CORE__SIMPLE_AUTH_MANAGER_USERS=admin:admin
       - AIRFLOW__CORE__SIMPLE_AUTH_MANAGER_PASSWORDS_FILE=/opt/airflow/config/passwords.json
-      - AIRFLOW__CORE__FERNET_KEY:${AIRFLOW__CORE__FERNET_KEY}
+      - AIRFLOW__CORE__FERNET_KEY=${AIRFLOW__CORE__FERNET_KEY}
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     networks:
       - my_network
     command: >
@@ -66,7 +73,8 @@ services:
     ports:
       - "5001:5001"
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     networks:
       - my_network
     command: uv run gunicorn -w 2 -b 0.0.0.0:5001 main:app

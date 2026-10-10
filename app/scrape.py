@@ -54,14 +54,14 @@ def website_scraping(link):
             return price
         except(IndexError, AttributeError):
             return None
-    if "perfumepalace.com" in link:
+    if "perfumepalace.in" in link:
         spans = soup.find_all("span", attrs={"class":"product__price on-sale"})
         try:
             price = (spans[0].text.replace("Rs.", "").replace(",", "").split('.')[0].strip())
             return price
         except(IndexError, AttributeError):
             return None
-    if "fragranceheaven.com" in link:
+    if "fragranceheaven.in" in link:
         spans = soup.find_all("div", attrs={"class":"t4s-product-price"})
         try:
             price = (spans[0].text.replace("Rs.", "").replace(",", "").split(' ', 2)[2].split('\n', 1)[0].split('.')[0].strip())
